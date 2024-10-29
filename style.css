@@ -1,0 +1,184 @@
+/* General Reset and Body Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(/bg1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Container Styling */
+.app-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(57, 57, 57, 0.3);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgb(255, 200, 0);
+    text-align: center;
+    box-shadow: 0 -2px 32px -4px #ffbc14;
+}
+#priority #low{
+    color: rgb(62, 253, 10);
+    font-weight: bolder;
+}
+#priority #medium{
+    color: rgb(10, 155, 251);
+    font-weight: bolder;
+}
+#priority #high{
+    color: rgb(255, 0, 0);
+    font-weight: bolder;
+}
+/* Header Styling */
+h1 {
+    color: #fac20a;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-container input[type="text"],
+.input-container input[type="date"],
+.input-container select {
+    flex: 1 1 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 1.5px solid #ddd; /* Border color */
+    border-radius: 5px;
+    color: #ffffff; /* White text color for contrast */
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+/* Focused Input Styles */
+.input-container input[type="text"]:focus,
+.input-container input[type="date"]:focus,
+.input-container select:focus {
+    border-color: #fac20a; /* Change border color on focus */
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly less transparent on focus */
+}
+
+/* Button styling */
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: transparent;
+    border: 1.5px solid greenyellow;
+    border-radius: 5px;
+    font-size: 16px;
+    color: rgb(227, 231, 221);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #202120;
+    border: 1.5px solid greenyellow;
+    color: greenyellow;
+    font-weight: bold;
+}
+
+/* Task List Styling */
+ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+li .due-date {
+    font-size: 0.9em;
+    color: #555;
+    margin-left: auto;
+}
+
+/* Priority Styles */
+.low {
+    border-left: 5px solid #00bfff;
+}
+
+.medium {
+    border-left: 5px solid #ffa500;
+}
+
+.high {
+    border-left: 5px solid #ff4500;
+}
+
+/* Delete Button */
+li .delete-btn {
+    background-color: #ff5c5c;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+li .delete-btn:hover {
+    background-color: #b80000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .app-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .due-date {
+        margin-top: 5px;
+    }
+
+    li .delete-btn {
+        align-self: flex-end;
+    }
+}
