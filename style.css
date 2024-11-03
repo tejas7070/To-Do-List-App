@@ -182,3 +182,8 @@ li .delete-btn:hover {
         align-self: flex-end;
     }
 }
+.due-date {
+    font-size: 0.9em;
+    color: #555;
+    margin-left: 10px;
+}
