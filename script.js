@@ -1,50 +1,62 @@
+// Get the add button and list elements
 document.getElementById("addTaskBtn").addEventListener("click", addTask);
+const taskList = document.getElementById("taskList");
 
-// Alert user if there are unfinished tasks when they try to close or refresh the page
-window.addEventListener("beforeunload", (event) => {
-    const incompleteTasks = document.querySelectorAll("li:not(.completed)");
-    if (incompleteTasks.length > 0) {
-        event.preventDefault();
-        event.returnValue = ''; // Triggers alert in most browsers
-    }
-});
-
+// Function to add tasks with priority and due date
 function addTask() {
     const taskInput = document.getElementById("taskInput");
     const taskText = taskInput.value.trim();
+    const priority = document.getElementById("priority").value;
+    const dueDateInput = document.getElementById("dueDateInput").value;
 
+    // Alert if no task text is entered
     if (taskText === "") {
         alert("Please enter a task.");
         return;
     }
 
-    const taskList = document.getElementById("taskList");
+    // Parse the due date
+    const dueDate = new Date(dueDateInput);
 
+    // Create list item for the task
     const li = document.createElement("li");
-    li.textContent = taskText;
+    li.classList.add(priority);
+    li.innerHTML = `
+        <span>${taskText}</span>
+        <span class="due-date">${dueDate.toLocaleString()}</span>
+        <button class="delete-btn">Delete</button>
+    `;
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.classList.add("delete-btn");
-    deleteBtn.addEventListener("click", () => li.remove());
+    // Delete task functionality
+    li.querySelector(".delete-btn").addEventListener("click", () => li.remove());
 
-    li.appendChild(deleteBtn);
-
-    // Toggle completed state when clicking on the task
-    li.addEventListener("click", () => li.classList.toggle("completed"));
-
+    // Append task and clear input
     taskList.appendChild(li);
     taskInput.value = "";
+    document.getElementById("dueDateInput").value = "";
 
-    // Only check for incomplete tasks if there are already tasks in the list
-    if (taskList.children.length > 1) {
-        checkIncompleteTasks();
-    }
+    // Check reminder
+    checkReminders();
 }
 
-function checkIncompleteTasks() {
-    const incompleteTasks = document.querySelectorAll("li:not(.completed)");
-    if (incompleteTasks.length > 0) {
-        alert("You have unfinished tasks! Make sure to complete them.");
-    }
+// Function to check and alert for due tasks
+function checkReminders() {
+    setInterval(() => {
+        const tasks = document.querySelectorAll("#taskList li");
+        const now = new Date();
+
+        tasks.forEach(task => {
+            const dueDateText = task.querySelector(".due-date").textContent;
+            const dueDate = new Date(dueDateText);
+
+            // Alert if the due date has passed
+            if (dueDate <= now) {
+                alert(`Reminder: Task "${task.querySelector("span").textContent}" is due now!`);
+                task.classList.add("completed");
+            }
+        });
+    }, 60000); // Check every minute
 }
+
+// Start reminders on page load
+checkReminders();
